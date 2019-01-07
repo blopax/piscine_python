@@ -2,4 +2,7 @@ __pycache__
 *.pyc
 .idea
 my_env
+db.sqlite3
+migrations/*
+!migrations/__init__.py
 .DS_Store

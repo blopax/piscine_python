@@ -3,6 +3,6 @@ __pycache__
 .idea
 my_env
 db.sqlite3
-migrations/*
-!migrations/__init__.py
+**/migrations/*
+!**/migrations/__init__.py
 .DS_Store

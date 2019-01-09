@@ -1,77 +1,113 @@
-class Text(str):
-    def __init__(self, text_input=''):
-        super().__init__()
-        if text_input is None:
-            self.text = ''
-        else:
-            self.text = str(text_input)
+#!/usr/bin/python3
 
-    def text_replace(self):
-        clean_text = self.text
+
+class Text(str):
+    """
+    A Text class to represent a text you could use with your HTML elements.
+
+    Because directly using str class was too mainstream.
+    """
+
+    def __str__(self):
+        """
+        Do you really need a comment to understand this method?..
+        """
+        clean_text = super().__str__()
         clean_text = clean_text.replace("<", "&lt;")
         clean_text = clean_text.replace(">", "&gt;")
         clean_text = clean_text.replace('"', "&quot;")
-        clean_text = clean_text.replace("\n", "\n<br />\n")
+        clean_text = clean_text.replace('\n', '\n<br />\n')
         return clean_text
 
-    def __str__(self):
-        return self.text_replace()
-
-
 class Elem:
+    """
+    Elem will permit us to represent our HTML elements.
+    """
+
     class ValidationError(Exception):
         def __str__(self):
             return "ValidationError"
 
-    def __init__(self, tag='div', attr=None, content=None, tag_type='double'):
+    def __init__(self, tag='div', attr={}, content=None, tag_type='double'):
+        """
+        __init__() method.
+
+        Obviously.
+        """
+        if not Elem.check_type(content) and content is not None:
+            raise Elem.ValidationError
+        if content is None:
+            self.content = Text("")
+        elif type(content) != list:
+            self.content = [content]
+        else:
+            self.content = content
+        self.content = [x for x in self.content if x != Text("")]
         self.tag = tag
         if attr is None:
             attr = {}
-        self.attribute = attr
-        self.content_list = self._content_to_list(content)
+        self.attr = attr
         self.tag_type = tag_type
-        self.string_content = self._parse_content()
 
-    @staticmethod
-    def _content_to_list(content):
-        content_list = []
-        if content is None:
-            content_list = [Text("")]
-        elif type(content) != list:
-            content_list.append(content)
-        else:
-            content_list = content
-        return content_list
-
-    def _parse_content(self):
-        content_string = ""
-        for content_item in self.content_list:
-            if not(isinstance(content_item, Elem) or isinstance(content_item, Text)):
-                raise self.ValidationError()
-            if str(content_item) != '':
-                content_string += str("\n" + str(content_item))
-        if content_string != "":
-            content_string = content_string.replace("\n", "\n  ")
-            content_string += "\n"
-        return content_string
-
-    def add_content(self, new_content):
-        new_content_list = self._content_to_list(new_content)
-        self.content_list += new_content_list
-        self.string_content = self._parse_content()
 
     def __str__(self):
-        attribute_str = ''
-        for k, v in self.attribute.items():
-            attribute_str += ' {}="{}"'.format(k, v)
+        """
+        The __str__() method will permit us to make a plain HTML representation
+        of our elements.
+        Make sure it renders everything (tag, attributes, embedded
+        elements...).
+        """
         if self.tag_type == 'double':
-            html = "<{}{}>{}</{}>".format(self.tag, attribute_str, self.string_content, self.tag)
-        else:
-            html = "<{}{} />".format(self.tag, attribute_str)
-        return html
+            content_str = self.__make_content()
+            if content_str != "":
+                content_str += "\n"
+            result= "<{}{}>{}</{}>".format(self.tag, self.__make_attr(), content_str, self.tag)
+        elif self.tag_type == 'simple':
+            result = "<{}{} />".format(self.tag, self.__make_attr())
+        return result
+
+    def __make_attr(self):
+        """
+        Here is a function to render our elements attributes.
+        """
+        result = ''
+        for pair in sorted(self.attr.items()):
+            result += ' ' + str(pair[0]) + '="' + str(pair[1]) + '"'
+        return result
+
+    def __make_content(self):
+        """
+        Here is a method to render the content, including embedded elements.
+        """
+
+        if len(self.content) == 0:
+            return ''
+        result = ''
+        for elem in self.content:
+            result += "\n{}".format(elem).replace("\n", "\n  ")
+        return result
+
+    def add_content(self, content):
+        if not Elem.check_type(content):
+            raise Elem.ValidationError
+        if type(content) == list:
+            self.content += [elem for elem in content if elem != Text('')]
+        elif content != Text(''):
+            self.content.append(content)
+
+    @staticmethod
+    def check_type(content):
+        """
+        Is this object a HTML-compatible Text instance or a Elem, or even a
+        list of both?
+        """
+        return (isinstance(content, Elem) or type(content) == Text or
+                (type(content) == list and all([type(elem) == Text or
+                                                isinstance(elem, Elem)
+                                                for elem in content])))
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     title = Elem(tag='title', content=Text('"Hello ground!"'))
     h1 = Elem(tag='h1', content=Text('"Oh no, not again!"'))
     img = Elem(tag='img', attr={'src': "http://i.imgur.com/pfp3T.jpg"}, tag_type='simple')

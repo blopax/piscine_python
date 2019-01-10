@@ -137,6 +137,7 @@ def combined_tests():
     </div>
   </div>
 </div>""")
+    print(example())
     assert (str(example()) == """<html>
   <head>
     <title>

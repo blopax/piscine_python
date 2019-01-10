@@ -19,6 +19,7 @@ class Text(str):
         clean_text = clean_text.replace('\n', '\n<br />\n')
         return clean_text
 
+
 class Elem:
     """
     Elem will permit us to represent our HTML elements.
@@ -36,19 +37,17 @@ class Elem:
         """
         if not Elem.check_type(content) and content is not None:
             raise Elem.ValidationError
-        if content is None:
-            self.content = Text("")
+        if content is None or content is Text():
+            self.content = [Text("")]
         elif type(content) != list:
             self.content = [content]
         else:
             self.content = content
-        self.content = [x for x in self.content if x != Text("")]
         self.tag = tag
         if attr is None:
             attr = {}
         self.attr = attr
         self.tag_type = tag_type
-
 
     def __str__(self):
         """
@@ -61,7 +60,7 @@ class Elem:
             content_str = self.__make_content()
             if content_str != "":
                 content_str += "\n"
-            result= "<{}{}>{}</{}>".format(self.tag, self.__make_attr(), content_str, self.tag)
+            result = "<{}{}>{}</{}>".format(self.tag, self.__make_attr(), content_str, self.tag)
         elif self.tag_type == 'simple':
             result = "<{}{} />".format(self.tag, self.__make_attr())
         return result
@@ -84,7 +83,8 @@ class Elem:
             return ''
         result = ''
         for elem in self.content:
-            result += "\n{}".format(elem).replace("\n", "\n  ")
+            if elem != "":
+                result += "\n{}".format(elem).replace("\n", "\n  ")
         return result
 
     def add_content(self, content):

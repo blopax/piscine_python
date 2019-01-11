@@ -1,0 +1,38 @@
+{% extends 'ex01/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    <title>Ex01 : Django, framework web.</title>
+{% endblock title %}
+
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'ex01/style1.css' %}"/>
+{% endblock style %}
+
+
+{% block content %}
+    <div>
+        <h1>Ex01 : Django, framework web.</h1>
+        <h2>Django qu'est-ce que c'est ?</h2>
+        <p>
+            Django est un framework web open source en python pour rapidement créer des sites web. Son slogan est:
+            "Le framework web pour perfectionnistes sous pression".
+            Il s'inspire du principe MVC arrangé en MTV: Models, Templates (gabarits), Views.
+        </p>
+        <h2>Sont inclus dans ce framework également:</h2>
+        <ul>
+            <li>API d'acces aux données</li>
+            <li>Un serveur web léger pour le développement et les tests</li>
+            <li>Intégration d'un systeme de traitement de formulaire</li>
+            <li>Et bien d'autres plugin</li>
+        </ul>
+        <h2>Historique</h2>
+        <p>
+            Conçu en 2003 pour un journal local du Kansas, il a depuis eu de nombreux contributeurs.
+            Depuis 2008, la <em>Django Doftware Foundation</em> s'occupe de la promotion du cadre.
+            De nombreux sites utilisent Django dont Instagram, Mozilla, <em>The Washington Times</em>, Bitbucket...
+        </p>
+    </div>
+{% endblock content %}

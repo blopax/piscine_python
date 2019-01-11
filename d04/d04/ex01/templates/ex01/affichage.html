@@ -1,0 +1,23 @@
+{% extends 'ex01/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    <title>Ex01 : Processus d'affichage d'une page statique.</title>
+{% endblock title %}
+
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'ex01/style1.css' %}"/>
+{% endblock style %}
+
+
+{% block content %}
+    <div>
+        <h1>Ex01 : Processus d'affichage d'une page statique.</h1>
+        <p>Lorsque django reçoit la requete pour une page web statique, le fichier urls.py du projet puis de l'app
+        determine quelle est la fonction qui correspond a cette requete dans le fichier views de l'app.
+            Cette fonction va renvoyer une réponse HTTP apres avoir processé le template concerné grace au moteur
+            de template afin d'obtenir le code HTML.</p>
+    </div>
+{% endblock content %}

@@ -7,3 +7,6 @@ db.sqlite3
 !**/migrations/__init__.py
 .DS_Store
 test_folder
+venv
+django_venv
+d02/**/tests.py

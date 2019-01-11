@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ex02: Forms</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Submit">
+    </form>
+    <ul>
+    {% for log in history %}
+        <li>
+            {{ log }}
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

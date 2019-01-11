@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            collapse: colspan;
+            border: solid black 1px;
+        }
+        th, td {
+            height: 40px;
+            width: 80px;
+            border: solid black 1px;
+        }
+    </style>
+</head>
+<body>
+        <table>
+            <tr>
+                <th>Noir</th>
+                <th>Rouge</th>
+                <th>Bleu</th>
+                <th>Vert</th>
+            </tr>
+            {% for line in lines %}
+                <tr>
+                    <td style="background-color: rgb({{ line }}, {{ line }}, {{ line }})"></td>
+                    <td style="background-color: rgb(255, {{ line }}, {{ line }})"></td>
+                    <td style="background-color: rgb({{ line }}, {{ line }}, 255)"></td>
+                    <td style="background-color: rgb({{ line }}, 255, {{ line }})"></td>
+                </tr>
+            {% endfor %}
+        </table>
+</body>
+</html>

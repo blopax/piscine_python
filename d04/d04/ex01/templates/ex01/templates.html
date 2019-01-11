@@ -1,6 +1,4 @@
 {% extends 'ex01/base.html' %}
-{% load static %}
-
 
 {% block title %}
     <title>Ex 01: Moteur de template.</title>
@@ -17,17 +15,17 @@
         <h1>Ex 01: Moteur de template.</h1>
         <h2>A quoi sert le moteur de template</h2>
         <p>
-            Le moteur de template permet de rendre dynamique les pages html en y intégrant diverses des bouts de codes
+            Le moteur de template permet de rendre dynamique les pages html en y intégrant divers bouts de codes
             qui seront processés dans un premier temps et remplacés par le html correspondant. Il existe ainsi plusieurs
-            fonctionnalités répandues qui sont listées ci-dessous.
+            fonctionnalités répandues qui s'appuient sur la philosophie de python et qui sont listées ci-dessous.
         </p>
         <h2>Les blocs: &#123;% block block_title %}&#123;% endblock block_title %}</h2>
         <p>
             Afin d'éviter la répétition de code (principe DRY) entre plusieurs pages html, il est possible d'intégrer le
             code d'un template dans un autre selon un principe similaire au principe d'héritage. Le template "mère" va
-            contenir tout le code commun aux templates "filles". Dans ce templates, certains blocs sont définis. Ils
+            contenir tout le code commun aux templates "filles". Dans ce template parent, certains blocs sont définis. Ils
             seront remplis différemment selon les templates "filles". <br/>
-            Les blocs sont définis par ces "balises": &#123;% block block_title %}&#123;% endblock block_title %}. Il n'y a rien
+            Les blocs dynamiques sont définis par ces "balises": &#123;% block block_title %}&#123;% endblock block_title %}. Il n'y a rien
             entre ces balises dans le template "mère".<br/>
             Afin de lier deux templates selon le principe mère-fille, le template fille doit appeler/étendre/hériter du
             template "mère" avec la balise &#123;% extends 'template_mere_path' %}. Le moteur de templates remplacera ces
@@ -35,9 +33,9 @@
         </p>
         <h2>Les boucles for ... in: &#123;% for x in list}&#123;% endfor %}</h2>
         <p>
-            Le moteur de template interprete comme dans python les boucles. Le contenu entre les balises sera interprété
+            Le moteur de template interprète comme dans python les boucles. Le contenu entre les balises sera interprété
             pour chaque itération de la boucle. Cela est très utile notamment pour les listes et les tableaux dont les
-            variables dependent de la list.
+            variables dependent de la liste.
         </p>
         <h2>Les structures de contrôle if: &#123;% if condition %}&#123;% endif %}</h2>
         <p>
@@ -47,7 +45,7 @@
         <h2>L'affichage de variables passées par contexte: &#123;&#123; variable }}</h2>
         <p>
             Très souvent, dans du code html on ne veut pas mettre directement en dur un contenu. On peut utiliser une
-            variable qui est passée par contexte dans la view. Cette variable a pu être traitée en python auparavant
+            variable qui est passée par contexte depuis la view. Cette variable a pu être traitée en python auparavant
             en fonction de la requête de l'utilisateur par exemple. On peut ajouter un filtre à la variable comme ceci :
              &#123;&#123; variable | filtre }}. Il existe different type de filtres qui modifient les variables (majuscule,
             format de dates...).

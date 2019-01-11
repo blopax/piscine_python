@@ -1,9 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     {% block title %}{% endblock title %}
-    {% block style %}{% endblock style %}
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static 'ex01/style1.css' %}"/>
+    {% endblock style %}
     <style>
         nav ul li {
             display: inline-block;

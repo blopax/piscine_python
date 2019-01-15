@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+    {% if no_data %}
+        <div>No data available</div>
+    {% else %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <select name="title">
+                {% for row in table %}
+                    <option value="{{ row.0 }}">{{ row.0 }}</option>
+                {% endfor %}
+            </select><br/>
+            Enter the opening crawl:<br/>
+            <input type="text" name="opening_crawl">
+            <input type="submit" value="update">
+        </form>
+    {% endif %}
+
+</body>
+</html>

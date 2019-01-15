@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display</title>
+</head>
+<body>
+    {% if table %}
+        <table>
+            {% for movie in table %}
+                <tr>
+                    <td style="padding: 10px">{{ movie.title }}</td>
+                    <td style="padding: 10px">{{ movie.episode_nb }}</td>
+                    <td style="padding: 10px">{{ movie.opening_crawl }}</td>
+                    <td style="padding: 10px">{{ movie.director }}</td>
+                    <td style="padding: 10px">{{ movie.producer }}</td>
+                    <td style="padding: 10px">{{ movie.release_date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div>No data available</div>
+    {% endif %}
+
+</body>
+</html>

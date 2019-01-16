@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        li {
+            display: inline-block;
+            width: 120px;
+            height: 40px;
+        }
+        td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <li><a href="{% url 'home' %}">Life pro tips</a></li>
+        <li>Hello {{username}}</li>
+        {% if not connected %}
+            <li><a href="{% url 'sign_in' %}">Sign in</a></li>
+            <li><a href="{% url 'sign_up' %}">Sign up</a></li>
+        {% else %}
+            <li><a href="{% url 'log_out' %}">Log out</a></li>
+        {% endif %}
+    </nav>
+
+    <div>
+        {% block content %}
+            {% if connected %}
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" name='add_tip' value="Submit">
+                </form><br/>
+                <form method="POST">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>Date</td>
+                            <td>Author</td>
+                            <td>Upvotes</td>
+                            <td>Downvotes</td>
+                            <td style="width: 800px">Content</td>
+                        </tr>
+                        {% for tip in tips %}
+                            <tr>
+                                <td>{{ tip.date }}</td>
+                                <td>{{ tip.author }}</td>
+                                <td>
+                                    {{ tip.upvotes_count }} <button type="submit" name='upvote' value="{{ tip.id }}">Upvote</button>
+                                </td>
+                                <td>
+                                    {{ tip.downvotes_count }} <button type="submit" name='downvote' value="{{ tip.id }}">Downvote</button>
+                                </td>
+                                <td style="width: 800px">{{ tip.content }}</td>
+                                <td>
+                                    <button type="submit" name='remove' value="{{ tip.id }}">Remove</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </form><br/>
+
+            {% endif %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

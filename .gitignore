@@ -10,3 +10,5 @@ test_folder
 venv
 django_venv
 d02/**/tests.py
+staticfiles
+mediafiles

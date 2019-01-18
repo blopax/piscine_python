@@ -1,0 +1,13 @@
+body {
+    background-image: url("https://images.unsplash.com/photo-1521500298799-89d665decaf1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80");
+    background-repeat: no-repeat;
+}
+
+div{
+    background: white;
+    width: 300px;
+}
+
+img {
+    width: 200px;
+}

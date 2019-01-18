@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    {% if debug %}
+        {% load static %}
+    {% else %}
+        {% load staticfiles %}
+    {% endif %}
+    <link rel="stylesheet" href="{% static "ex00/stylesheet.css" %}"
+</head>
+<body>
+    <div>
+        <h1>My awesome app</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+        <h2>Updated images</h2>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Image</th>
+            </tr>
+            {% for file in files %}
+            <tr>
+                <td>{{ file.title }}</td>
+                <td><img src="{{ file.upload.url }}" /></td>
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+</body>
+</html>
